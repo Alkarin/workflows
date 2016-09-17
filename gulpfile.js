@@ -30,9 +30,6 @@ gulp.task('js', function() {
     .pipe(gulp.dest('builds/development/js'));
 });
 
-
-gulp.task('default', ['coffee','js','compass']);
-
 gulp.task('compass', function() {
   gulp.src(sassSources)
     .pipe(compass({
@@ -45,9 +42,10 @@ gulp.task('compass', function() {
     .pipe(gulp.dest('builds/development/css'))
 });
 
-gulp.task('sass', function(){
-  return gulp.src(sassSources)
-    .pipe(sass()) // Using gulp-sass
-    .on('error', gutil.log)
-    .pipe(gulp.dest('builds/development/css'))
+gulp.task('default', ['coffee','js','compass']);
+
+gulp.task('watch', function(){
+  gulp.watch(coffeeSources,['coffee'])
+  gulp.watch(jsSources,['js'])
+  gulp.watch('components/sass/*.scss',['compass'])
 });
